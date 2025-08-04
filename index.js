@@ -257,7 +257,7 @@ await XeonBotInc.sendMessage(botNumber, {
 ⟟ ꜱᴛᴀᴛᴜꜱ: ✅ ᴀᴄᴛɪᴠᴇ & ᴄᴏɴɴᴇᴄᴛᴇᴅ  
 ⟟ ᴛɪᴍᴇ: ${new Date().toLocaleString()}
 
-📡 ᴄʜᴀɴɴᴇʟ: https://whatsapp.com/channel/0029VbAxkJl0lwgqAOojKI3R
+JOIN CHANNEL FOR UPDATES
 `,
     contextInfo: {
         forwardingScore: 1,
@@ -311,6 +311,7 @@ await XeonBotInc.sendMessage(botNumber, {
 
     return XeonBotInc
 }
+
 
 
 // Start the bot with error handling

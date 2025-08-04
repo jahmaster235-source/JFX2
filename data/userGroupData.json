@@ -1,11 +1,22 @@
 {
   "users": [],
   "groups": [],
-  "antilink": {},
+  "antilink": {
+    "120363372115176433@g.us": {
+      "enabled": true,
+      "action": "delete"
+    }
+  },
   "antibadword": {},
   "warnings": {},
   "sudo": [],
-  "welcome": {},
+  "welcome": {
+    "120363419397605640@g.us": {
+      "enabled": true,
+      "message": "╔═⚔️ WELCOME ⚔️═╗\n║ 🛡️ User: {user}\n║ 🏰 Kingdom: {group}\n╠═══════════════╣\n║ 📜 Message:\n║ {description}\n╚═══════════════╝",
+      "channelId": "120363420646690174@newsletter"
+    }
+  },
   "goodbye": {},
   "chatbot": {},
   "autoReaction": false
