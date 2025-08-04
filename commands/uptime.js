@@ -19,13 +19,18 @@ async function uptimeCommand(sock, chatId) {
     const now = new Date();
     const timestamp = now.toLocaleString('en-NG', { timeZone: 'Africa/Lagos' });
 
-    const reply = `*🤖 JFX MD-X UPTIME STATUS*
+    const reply = `
+☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻
+🤖 ᴊꜰx ᴍᴅ-ˣ ᴜᴘᴛɪᴍᴇ ꜱᴛᴀᴛᴜꜱ
+☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻☻
 
-⏱ *Uptime:* ${formatted}
-⚡ *Speed:* ${speed} ms
-🕒 *Time:* ${timestamp}
+☻ ☞ ⏱ ᴜᴘᴛɪᴍᴇ : ${formatted}  
+☻ ☞ ⚡ ꜱᴘᴇᴇᴅ  : ${speed} ms  
+☻ ☞ 🕒 ᴛɪᴍᴇ   : ${timestamp}  
 
-🔥 Powered by *JFX Tech Zone* ⚡`;
+☻ ☞ 🔥 ᴘᴏᴡᴇʀᴇᴅ ʙʏ *ᴊꜰx ᴛᴇᴄʜ ᴢᴏɴᴇ* ⚡
+`.trim();
+
 
     await sock.sendMessage(chatId, { text: reply });
 }
