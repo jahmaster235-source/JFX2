@@ -1,53 +1,82 @@
-async function groupInfoCommand(sock, chatId, msg) {
-    try {
-        // Get group metadata
-        const groupMetadata = await sock.groupMetadata(chatId);
-        
-        // Get group profile picture
-        let pp;
-        try {
-            pp = await sock.profilePictureUrl(chatId, 'image');
-        } catch {
-            pp = 'https://i.imgur.com/2wzGhpF.jpeg'; // Default image
-        }
+const fs = require('fs');
 
-        // Get admins from participants
-        const participants = groupMetadata.participants;
-        const groupAdmins = participants.filter(p => p.admin);
-        const listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.id.split('@')[0]}`).join('\n');
-        
-        // Get group owner
-        const owner = groupMetadata.owner || groupAdmins.find(p => p.admin === 'superadmin')?.id || chatId.split('-')[0] + '@s.whatsapp.net';
-
-        // Create info text
-        const text = `
-┌──「 *INFO GROUP* 」
-▢ *♻️ID:*
-   • ${groupMetadata.id}
-▢ *🔖NAME* : 
-• ${groupMetadata.subject}
-▢ *👥Members* :
-• ${participants.length}
-▢ *🤿Group Owner:*
-• @${owner.split('@')[0]}
-▢ *🕵🏻‍♂️Admins:*
-${listAdmin}
-
-▢ *📌Description* :
-   • ${groupMetadata.desc?.toString() || 'No description'}
-`.trim();
-
-        // Send the message with image and mentions
-        await sock.sendMessage(chatId, {
-            image: { url: pp },
-            caption: text,
-            mentions: [...groupAdmins.map(v => v.id), owner]
-        });
-
-    } catch (error) {
-        console.error('Error in groupinfo command:', error);
-        await sock.sendMessage(chatId, { text: 'Failed to get group info!' });
-    }
+function msToDate(ms) {
+    let days = Math.floor(ms / (24 * 60 * 60 * 1000));
+    let daysms = ms % (24 * 60 * 60 * 1000);
+    let hours = Math.floor(daysms / (60 * 60 * 1000));
+    let hoursms = ms % (60 * 60 * 1000);
+    let minutes = Math.floor(hoursms / (60 * 1000));
+    return `${days} DAYS ${hours} HOUR ${minutes} MINUTES`;
 }
 
-module.exports = groupInfoCommand; 
+module.exports = {
+    name: "groupinfo",
+    description: "Show full group info with bot settings",
+    category: "group",
+    execute: async function (sock, m, { participants, groupMetadata }) {
+        const getGroupAdmins = (participants) => {
+            const admins = [];
+            for (let i of participants) {
+                if (i.admin) admins.push(i.id);
+            }
+            return admins;
+        };
+
+        let pp = './assets/bot_image.jpg';
+        try {
+            pp = await sock.profilePictureUrl(m.chat, 'image');
+        } catch (e) { }
+
+        const { isBanned, welcome, detect, sWelcome, sBye, sPromote, sDemote, antiLink, expired, descUpdate, stiker } = global.db.data.chats[m.chat];
+        const groupAdmins = getGroupAdmins(participants);
+        const listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.split`@`[0]}`).join('\n');
+
+        let caption = `
+ꜱʜᴏᴡɪɴɢ ɢʀᴏᴜᴘ ɪɴꜰᴏ ʙᴇʟᴏᴡ
+
+📛 *ɴᴀᴍᴇ:* 
+${groupMetadata.subject}
+
+🆔 *ɢʀᴏᴜᴘ ɪᴅ:* 
+${groupMetadata.id}
+
+📝 *ᴅᴇꜱᴄʀɪᴘᴛɪᴏɴ:* 
+${groupMetadata.desc || 'No description'}
+
+👥 *ᴍᴇᴍʙᴇʀꜱ:* 
+${participants.length} ᴛᴏᴛᴀʟ
+
+👑 *ᴄʀᴇᴀᴛᴏʀ:* 
+@${m.chat.split`-`[0]}
+
+🛡️ *ᴀᴅᴍɪɴꜱ:* 
+${listAdmin}
+
+⚙️ *ʙᴏᴛ ꜱᴇᴛᴛɪɴɢꜱ:* 
+🔗 Anti Link: ${antiLink ? '✅' : '❌'}
+🗑 Anti Delete: ${global.db.data.chats[m.chat].delete ? '❌' : '✅'}
+🚫 Banned: ${isBanned ? '✅' : '❌'}
+📢 Desc Update: ${descUpdate ? '✅' : '❌'}
+👁 Detect: ${detect ? '✅' : '❌'}
+🖼 Sticker Welcome: ${stiker ? '✅' : '❌'}
+🙋 Welcome: ${welcome ? '✅' : '❌'}
+
+📝 *ᴍᴇꜱꜱᴀɢᴇꜱ:* 
+👋 Welcome: ${sWelcome || '-'}
+👋 Bye: ${sBye || '-'}
+🧑‍🎓 Promote: ${sPromote || '-'}
+🧑‍🦯 Demote: ${sDemote || '-'}
+
+⏳ *ᴇxᴘɪʀᴇꜱ ɪɴ:* 
+${msToDate(expired - Date.now())}
+        `.trim();
+
+        let mentionedJid = groupAdmins.concat([`${m.chat.split`-`[0]}@s.whatsapp.net`]);
+
+        await sock.sendMessage(m.chat, {
+            image: { url: pp },
+            caption,
+            mentions: mentionedJid
+        }, { quoted: m });
+    }
+};

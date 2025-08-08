@@ -1,22 +1,22 @@
-# 🏴‍☠🏴‍☠🏴‍☠🏴‍☠🏴‍☠🏴‍☠🏴‍☠ JFX MD-X 🏴‍☠🏴‍☠🏴‍☠🏴‍☠🏴‍☠🏴‍☠🏴‍☠🏴‍☠
+# 🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️ JFX MD-X 🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️🏴‍☠️
 
 This is a WhatsApp bot built using the Baileys library for group management, including features like tagging all members, muting/unmuting, and many more. It's designed to help admins efficiently manage WhatsApp groups.
 
-<div align="center"> 
-  <a href="https://git.io/typing-svg"> 
+<div align="center">
+  <a href="https://git.io/typing-svg">
     <img src="https://readme-typing-svg.demolab.com?font=Ribeye&size=50&pause=1000&color=33ff00&center=true&width=910&height=100&lines=JFX-MD-X;Multi+Device+Whatsapp+Bot;Coded+By+JEPHTER+TECH" alt="Typing SVG" />
-  </a> 
-</div> 
+  </a>
+</div>
 
-<div align="center"> 
-  <a href="https://whatsapp.com/channel/0029VbAxkJl0lwgqAOojKI3R"> 
-    <img src="https://github.com/Jeffreyfx1/jfx-md-x-bot/blob/main/assets/bot_image.jpg" alt="JFX MD-X" height="300"> 
-  </a> 
+<div align="center">
+  <a href="https://whatsapp.com/channel/0029VbAxkJl0lwgqAOojKI3R">
+    <img src="https://github.com/Jeffreyfx1/jfx-md-x-bot/blob/main/assets/bot_image.jpg" alt="JFX MD-X" height="300">
+  </a>
 </div>
 
 ---
 
-  ## 🚀 Steps to Deploy
+## 🚀 Steps to Deploy
 
 ### Step 1: Fork the Repository
 
@@ -30,23 +30,11 @@ Click the button below to fork the JFX MD-X repository to your GitHub account:
 
 ---
 
-### Step 2: Get Pair Code
+### Step 2: Deploy the Bot (No QR or creds.json needed)
 
-Deploy the bot and easily connect it to your WhatsApp account by pair code. Click the button below to deploy the bot on Replit.
+Your bot will automatically connect using a secure code provided during hosting setup.
 
-<div align="center">
-  <a href="https://replit.com/@DGXeon/Xeon-PairCode?v=1" target="_blank">
-    <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Replit-success?style=for-the-badge" alt="Deploy on Replit"/>
-  </a>
-</div>
-
-<div align="center">
-  <a href="https://knight-bot-paircode.onrender.com" target="_blank">
-    <img src="https://img.shields.io/badge/GET%20PAIR%20CODE-Easy%20Method-ff4d4d?style=for-the-badge" alt="Generate Pair Code"/>
-  </a>
-</div>
-
-### After getting creds.json file, upload it to `session/` folder
+Just deploy to any Node.js-capable platform and provide the `pairing code` in terminal if needed — no QR code, no session file required.
 
 ---
 
@@ -88,13 +76,13 @@ For further customization and setup guidance, click the button below:
 
 ## ⚙️ Features
 
-- **Tag all group members** with the `.tagall` command  
-- **Admin-restricted usage** (only group admins can use certain commands)  
-- **Games** like Tic-Tac-Toe for fun  
-- **Text-to-Speech** with `.tts`  
-- **Sticker creation** with `.sticker`  
-- **Anti-link detection** for group safety  
-- **Warn and manage group members** with admin control  
+* **Tag all group members** with the `.tagall` command
+* **Admin-restricted usage** (only group admins can use certain commands)
+* **Games** like Tic-Tac-Toe for fun
+* **Text-to-Speech** with `.tts`
+* **Sticker creation** with `.sticker`
+* **Anti-link detection** for group safety
+* **Warn and manage group members** with admin control
 
 ---
 
@@ -102,15 +90,16 @@ For further customization and setup guidance, click the button below:
 
 JFX MD-X is a multi-device WhatsApp bot by **JEPHTER TECH**, powered by the Baileys library. It helps automate group management and supports real-time command handling.
 
-Easy to customize and deploy, it’s built with Node.js and uses QR or session pairing for login.
+Easy to customize and deploy, it’s built with Node.js and connects via pairing code on terminal (no QR or session file needed).
 
 ---
 
 ## 🛠️ Setup & Installation
 
 ### Prerequisites
-- Node.js installed
-- Git installed
+
+* Node.js installed
+* Git installed
 
 ### Steps
 
@@ -119,3 +108,4 @@ git clone https://github.com/Jeffreyfx1/JFX-MD-X.git
 cd JFX-MD-X
 npm install
 node index.js
+```

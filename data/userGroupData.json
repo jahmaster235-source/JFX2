@@ -13,11 +13,11 @@
   "welcome": {
     "120363419397605640@g.us": {
       "enabled": true,
-      "message": "╔═⚔️ WELCOME ⚔️═╗\n║ 🛡️ User: {user}\n║ 🏰 Kingdom: {group}\n╠═══════════════╣\n║ 📜 Message:\n║ {description}\n╚═══════════════╝",
+      "message": "╔═👑 WELCOME, CHAMPION!═╗\n║ 🛡️ User:{user}\n║ 🏟️ ʀᴇᴀʟᴍ:{group}\n╠═══════════════╣\n║ 📜 Message:\n║ {description}\n╚═══════════════╝",
       "channelId": "120363420646690174@newsletter"
     }
   },
   "goodbye": {},
   "chatbot": {},
-  "autoReaction": false
+  "autoReaction": true
 }

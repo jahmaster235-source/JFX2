@@ -1,13 +1,13 @@
 const settings = {
-  packname: '𝒥𝐹𝒳 𝑀𝒟-𝒳',
+  packname: '☯☞ ᴊꜰx ᴍᴅ-xᴠ2',
   author: 'JEPHTER TECH',
-  botName: "☻ ☞  JFX MD-X",
-  botOwner: '👑JEPHTER-TECH', // Your name
+  botName: "☞ ᴊꜰx ᴍᴅ-xᴠ2",
+  botOwner: '♛ᴊᴇᴘʜᴛᴇʀ-ᴛᴇᴄʜ', // Your name
   ownerNumber: '2349046157539', // No + symbol
   giphyApiKey: 'qnl7ssQChTdPjsKta2Ax2LMaGXz303tq',
   commandMode: "public",
-  description: "A powerful WhatsApp MD bot by JEPHTER TECH. Channel: https://whatsapp.com/channel/0029VbAxkJl0lwgqAOojKI3R",
-  version: "1000xx",
+  description: "ᴀ ᴘᴏᴡᴇʀꜰᴜʟ ᴡʜᴀᴛꜱᴀᴘᴘ ᴍᴅ ʙᴏᴛ ʙʏ ᴊᴇᴘʜᴛᴇʀ ᴛᴇᴄʜ. ᴄʜᴀɴɴᴇʟ: https://whatsapp.com/channel/0029VbAxkJl0lwgqAOojKI3R",
+  version: "5ɢꜱᴘᴇᴇᴅᴠ2",
 };
 
 module.exports = settings;

@@ -1,48 +1,85 @@
+const fs = require('fs');
 const os = require('os');
+const path = require('path');
 const settings = require('../settings.js');
+const { sizeFormatter } = require('human-readable');
+
+const format = sizeFormatter({
+  std: 'JEDEC',
+  decimalPlaces: 2,
+  keepTrailingZeroes: false,
+  render: (literal, symbol) => `${literal} ${symbol}B`,
+});
 
 function formatTime(seconds) {
-    const days = Math.floor(seconds / (24 * 60 * 60));
-    seconds = seconds % (24 * 60 * 60);
-    const hours = Math.floor(seconds / (60 * 60));
-    seconds = seconds % (60 * 60);
-    const minutes = Math.floor(seconds / 60);
-    seconds = Math.floor(seconds % 60);
+  const days = Math.floor(seconds / (24 * 60 * 60));
+  seconds %= 24 * 60 * 60;
+  const hours = Math.floor(seconds / (60 * 60));
+  seconds %= 60 * 60;
+  const minutes = Math.floor(seconds / 60);
+  seconds = Math.floor(seconds % 60);
 
-    let time = '';
-    if (days > 0) time += `${days}d `;
-    if (hours > 0) time += `${hours}h `;
-    if (minutes > 0) time += `${minutes}m `;
-    if (seconds > 0 || time === '') time += `${seconds}s`;
+  let time = '';
+  if (days > 0) time += `${days}d `;
+  if (hours > 0) time += `${hours}h `;
+  if (minutes > 0) time += `${minutes}m `;
+  if (seconds > 0 || time === '') time += `${seconds}s`;
 
-    return time.trim();
+  return time.trim();
 }
 
 async function pingCommand(sock, chatId, message) {
-    try {
-        const start = Date.now();
-        await sock.sendMessage(chatId, { text: 'Pong!' }, { quoted: message });
-        const end = Date.now();
-        const ping = Math.round((end - start) / 2);
+  try {
+    const start = Date.now();
+    await sock.sendMessage(chatId, { text: 'Pong!' }, { quoted: message });
+    const end = Date.now();
+    const ping = Math.round((end - start) / 2);
 
-        const uptimeInSeconds = process.uptime();
-        const uptimeFormatted = formatTime(uptimeInSeconds);
+    const uptimeFormatted = formatTime(process.uptime());
+    const memoryUsage = process.memoryUsage();
 
-        const botInfo = `
-┏━━━『 🚗 JFX PING™ 』━━━┓
-✦ 🚀 Ping     : ${ping} ms
-✦ ⏱️ Uptime   : ${uptimeFormatted}
-✦ 🧬 Version  : v${settings.version}
-┗━━━━━━━━━━━━━━━━━━━━━━┛`.trim();
+    const cpuModel = os.cpus()[0]?.model || 'Unknown CPU';
+    const cpuSpeed = os.cpus()[0]?.speed || 0;
+    const totalMem = format(os.totalmem());
+    const freeMem = format(os.freemem());
+    const usedMem = format(os.totalmem() - os.freemem());
 
+    const memoryFormatted = Object.entries(memoryUsage)
+      .map(([key, val]) => `${key}: ${format(val)}`)
+      .join(', ');
 
-        // Reply to the original message with the bot info
-        await sock.sendMessage(chatId, { text: botInfo},{ quoted: message });
+    const botInfo = `
+┏━━━『ᴊꜰx ᴍᴅ-xᴠ2 ᴘɪɴɢ™ 』━━━┓
+✦ 🚀 Ping       : ${ping} ms
+✦ ⏱️ Uptime     : ${uptimeFormatted}
+✦ 🧬 Version    : v${settings.version}
 
-    } catch (error) {
-        console.error('Error in ping command:', error);
-        await sock.sendMessage(chatId, { text: '❌ Failed to get bot status.' });
-    }
+💻 *ꜱʏꜱᴛᴇᴍ ꜱᴛᴀᴛꜱ*
+✦ CPU         : ${cpuModel} (${cpuSpeed} MHz)
+✦ RAM Usage   : ${usedMem} / ${totalMem}
+✦ Free Memory : ${freeMem}
+✦ Memory Info : ${memoryFormatted}
+┗━━━━━━━━━━━━━━━┛`.trim();
+
+    // 🖼 Send image with caption
+    const imageBuffer = fs.readFileSync(path.join(__dirname, '../assets/ping.jpg'));
+    await sock.sendMessage(chatId, {
+      image: imageBuffer,
+      caption: botInfo
+    }, { quoted: message });
+
+    // 🔊 Send audio response
+    const audioBuffer = fs.readFileSync('./audio/ping.mp3');
+    await sock.sendMessage(chatId, {
+      audio: audioBuffer,
+      mimetype: 'audio/mpeg',
+      ptt: true
+    }, { quoted: message });
+
+  } catch (error) {
+    console.error('Error in ping command:', error);
+    await sock.sendMessage(chatId, { text: '❌ Failed to get bot status.' });
+  }
 }
 
 module.exports = pingCommand;
