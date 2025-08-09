@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ᴅᴀꜱʜʙᴏᴀʀᴅ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #000000 100%);
+      overflow-y: auto;
+      font-family: 'Orbitron', sans-serif;
+      color: #00f7ff;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      box-shadow: 
+        100px 200px #fff,
+        200px 300px #fff,
+        300px 100px #fff,
+        400px 400px #fff,
+        500px 150px #fff,
+        600px 250px #fff;
+      animation: twinkle 2s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00f7ff;
+    }
+
+    h1 {
+      font-size: 3em;
+      letter-spacing: 3px;
+      text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff, 0 0 30px #00f7ff;
+    }
+
+    .stats {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 1.2em;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul li {
+      padding: 5px 0;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: transparent;
+      border: 2px solid #00f7ff;
+      border-radius: 8px;
+      color: #00f7ff;
+      font-size: 1.2em;
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px #00f7ff;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      background: #00f7ff;
+      color: black;
+      box-shadow: 0 0 20px #00f7ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="container">
+    <h1>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ ᴛʜᴇ ᴅᴀꜱʜʙᴏᴀʀᴅ</h1>
+    
+    <div class="stats">
+      <p><strong>⏱ Uptime:</strong> <span id="uptime">Loading...</span></p>
+      <p><strong>👥 Connected Users:</strong> <span id="users">Loading...</span></p>
+      <p><strong>📜 Available Commands:</strong></p>
+      <ul id="commands"></ul>
+    </div>
+
+    <a href="/logout">ʟᴏɢᴏᴜᴛ</a>
+  </div>
+
+  <script>
+    async function fetchStats() {
+      try {
+        const res = await fetch('/stats');
+        const data = await res.json();
+
+        document.getElementById('uptime').textContent = data.uptime;
+        document.getElementById('users').textContent = data.connectedUsers.join(', ') || 'No users';
+        
+        const commandsList = document.getElementById('commands');
+        commandsList.innerHTML = '';
+        data.commands.forEach(cmd => {
+          const li = document.createElement('li');
+          li.textContent = cmd;
+          commandsList.appendChild(li);
+        });
+      } catch (err) {
+        console.error('Error fetching stats:', err);
+      }
+    }
+
+    // Load immediately, then update every 5 seconds
+    fetchStats();
+    setInterval(fetchStats, 5000);
+  </script>
+</body>
+</html>

@@ -11,6 +11,7 @@
  */
 require('./settings')
 const { Boom } = require('@hapi/boom')
+require('./server'); // This will start the server
 const fs = require('fs')
 const chalk = require('chalk')
 const Footer = "ᴊꜰx ᴍᴅ-ˣ ʙᴏᴛ ʙʏ ᴊᴇᴘʜᴛᴇʀ ᴛᴇᴄʜ";
