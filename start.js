@@ -67,3 +67,6 @@ function start(file) {
 
 // 📌 Start your main bot file
 start('index.js'); // Change this if your main file has a different name
+
+
+

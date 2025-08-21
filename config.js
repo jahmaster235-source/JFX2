@@ -1,4 +1,15 @@
 require('dotenv').config();
+module.exports = {
+    MAX_RETRIES: 3,
+    GROUP_INVITE_LINK: 'https://chat.whatsapp.com/ENTER_URL👈?mode=ac_t',
+    ADMIN_LIST_PATH: './lib/isAdmin.js',
+    IMAGE_PATH: 'https://ibb.co/cXhFzBRx',
+    NEWSLETTER_JID: '120363420646690174@newsletter',
+    NEWSLETTER_MESSAGE_ID: '428',
+    OTP_EXPIRY: 300000,
+    NEWS_JSON_URL: '',
+    CHANNEL_LINK: 'https://chat.whatsapp.com/BAE3fB7V8Df203xfITReuu',
+};
 
 global.APIs = {
     xteam: 'https://api.xteam.xyz',

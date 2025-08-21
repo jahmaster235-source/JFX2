@@ -3,16 +3,23 @@ const settings = require("../settings");
 
 async function aliveCommand(sock, chatId, message) {
     try {
-        const message1 = `*ᴊꜰx ᴍᴅ-xᴠ2 is Active!*\n\n` +
-                       `*ᴠᴇʀꜱɪᴏɴ:* ${settings.version}\n` +
-                       `*ꜱᴛᴀᴛᴜꜱ:* ᴏɴʟɪɴᴇ\n` +
-                       `*ᴍᴏᴅᴇ:* ᴘᴜʙʟɪᴄ\n\n` +
-                       `*🌟 ꜰᴇᴀᴛᴜʀᴇꜱ:*\n` +
-                      `• ɢʀᴏᴜᴘ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ\n` +
-                    `• ᴀɴᴛɪʟɪɴᴋ ᴘʀᴏᴛᴇᴄᴛɪᴏɴ\n` +
-                     `• ꜰᴜɴ ᴄᴏᴍᴍᴀɴᴅꜱ\n` +
-                    `• ᴀɴᴅ ᴍᴏʀᴇ!\n\n` +
-            `ᴛʏᴘᴇ *.menu* ꜰᴏʀ ꜰᴜʟʟ ᴄᴏᴍᴍᴀɴᴅ ʟɪꜱᴛ`;
+        const message1 =
+`ᬐ༂᳆╭ 𝐉𝐅𝐗 𝐌𝐃-𝐗 𝐕2╮༂ᬐ
+
+✅ *Status:* ᴏɴʟɪɴᴇ
+🧩 *Mode:* ᴘᴜʙʟɪᴄ
+🗂️ *Version:* ${settings.version}
+
+┏━ 🌟 *Features* ━
+┃ • ɢʀᴏᴜᴘ ᴍᴀɴᴀɢᴇᴍᴇɴᴛ
+┃ • ᴀɴᴛɪʟɪɴᴋ ᴘʀᴏᴛᴇᴄᴛɪᴏɴ
+┃ • ꜰᴜɴ ᴄᴏᴍᴍᴀɴᴅꜱ
+┃ • ᴀɴᴅ ᴍᴏʀᴇ!
+┗━━━━━━━━━━
+
+📎 ᴛʏᴘᴇ *.menu* ꜰᴏʀ ꜰᴜʟʟ ᴄᴏᴍᴍᴀɴᴅ ʟɪꜱᴛ
+
+ᬐ༂᳆╰𝐉𝐅𝐗 𝐌𝐃-𝐗 ╯༂ᬐ`;
 
         await sock.sendMessage(chatId, {
             text: message1,
@@ -27,7 +34,7 @@ async function aliveCommand(sock, chatId, message) {
             }
         }, { quoted: message });
 
-        // 🔊 Send audio response
+        // 🔊 Send audio response (kept exactly like your original flow)
         const audioBuffer = fs.readFileSync('./audio/alive.mp3');
         await sock.sendMessage(chatId, {
             audio: audioBuffer,
